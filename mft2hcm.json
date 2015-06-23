@@ -1,0 +1,14 @@
+{
+  "type": "UCM",
+  "template":    "UCM-PAYLOAD",
+  "cfgarr": [
+        { "config": "hcm.json", "file": "HCM-PAYLOAD"}
+  ],
+  "request": {
+    "url": "http://HOSTNAME:10613/idcws/GenericSoapPort",
+    "method": "POST",
+    "headers": { "Content-Type": "text/xml; charset=utf-8" },
+    "auth": { "user": "USERNAME", "pass": "PASSWORD" }
+  }
+}
+

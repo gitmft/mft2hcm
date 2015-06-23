@@ -1,0 +1,19 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://xmlns.oracle.com/apps/hcm/common/batchLoader/core/loaderIntegrationService/types/">
+
+<soapenv:Header>
+<wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+<wsu:Timestamp wsu:Id="TS-66EFA5149698CBC33C143172394712423">
+<wsu:Created>%%ISOTIME%%</wsu:Created>
+</wsu:Timestamp>
+<wsse:UsernameToken wsu:Id="UsernameToken-66EFA5149698CBC33C143172394712422"><wsse:Username>%%USERNAME%%</wsse:Username><wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">%%PASSWORD%%</wsse:Password></wsse:UsernameToken></wsse:Security>
+  </soapenv:Header>
+   <soapenv:Body>
+      <typ:submitBatch>
+         <typ:ZipFileName>%%FILENAME%%.zip</typ:ZipFileName>
+         <typ:BusinessObjectList>Establishment</typ:BusinessObjectList>
+         <typ:BatchName>Batch %%ISOTIME%%</typ:BatchName>
+         <typ:LoadType>FBL</typ:LoadType>
+         <typ:AutoLoad>Y</typ:AutoLoad>
+      </typ:submitBatch>
+   </soapenv:Body>
+</soapenv:Envelope>

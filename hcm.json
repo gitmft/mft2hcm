@@ -1,0 +1,20 @@
+{
+  "type": "HCM",
+  "ctype": "text",
+  "reqtemps": false,
+  "request": {
+    "rejectUnauthorized": false, // for non trusted CA's
+    "url": "https://HOSTNAME:10620/hcmCommonBatchLoader/LoaderIntegrationService",
+    "method": "POST",
+    "headers": {
+        "Content-Type": "text/xml; charset=utf-8",
+        "Connection": "Keep-Alive"
+        },
+    "auth": { "user": "USERNAME", "pass": "PASSWORD" },
+    "agentOptions": {
+        "ca": "hcmcert.cer",
+        "Connection": "Keep-Alive",
+        "securityOptions": "SSL_OP_NO_SSLv3"  
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "mft2hcm",
+  "version": "1.0.0",
+  "description": "NodeJS app to copy files from MFT flow to UCM and Oracle HCM",
+  "main": "mft2hcm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gitmft/mft2hcm"
+  },
+  "keywords": [
+    "mft",
+    "hcm",
+    "ucm",
+    "oracle",
+    "files",
+    "upload",
+    "cloud",
+    "callout"
+  ],
+  "author": "Dave Berry <obigfiles@gmail.com> (https://github.com/gitmft)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gitmft/mft2hcm/issues"
+  },
+  "homepage": "https://github.com/gitmft/mft2hcm",
+  "dependencies": {
+    "mft-upload": "^1.0.11"
+  }
+}
