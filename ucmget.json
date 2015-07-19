@@ -1,0 +1,14 @@
+{ // cmd line example: node mft2hcm.js docid=659 config=ucmget.json file=UCM-PAYLOAD-GET
+  // gets a file based on docid(dID). Used chained on back end of ucmsearch.json
+  "type": "UCMGET",
+  "ctype": "text",
+  "reqtemps": false,
+  "request": {
+    "url": "http://HOSTNAME:10613/idcws/GenericSoapPort",
+    "method": "POST",
+    "encoding": "binary",
+    "headers": { "Content-Type": "text/xml; charset=utf-8" },
+    "auth": { "user": "USERNAME", "pass": "PASSWORD" }
+  }
+}
+

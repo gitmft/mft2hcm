@@ -1,0 +1,15 @@
+{ // cmdline example: node mft2hcm.js searchfile=mft2hcm.js config=ucmsearch.json file=UCM-PAYLOAD-SEARCH
+  "type": "UCMSEARCH",
+  "ctype": "text",
+  "cfgarr": [
+        { "config": "ucmget.json", "file": "UCM-PAYLOAD-GET"}
+  ],
+  "reqtemps": false,
+  "request": {
+    "url": "http://HOSTNAME:10613/idcws/GenericSoapPort",
+    "method": "POST",
+    "headers": { "Content-Type": "text/xml; charset=utf-8" },
+    "auth": { "user": "USERNAME", "pass": "PASSWORD" }
+  }
+}
+

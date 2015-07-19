@@ -4,26 +4,18 @@
           <wsse:UsernameToken wsu:Id="UsernameToken-2" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
           <wsse:Username>%%USERNAME%%</wsse:Username>
           <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">%%PASSWORD%%</wsse:Password>
+          <wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">jwCzGGijT90Wml6eZe4cxg==</wsse:Nonce>
           <wsu:Created>%%ISOTIME%%</wsu:Created>
         </wsse:UsernameToken>
     </wsse:Security>
-  </soapenv:Header>
+   </soapenv:Header>
    <soapenv:Body>
       <ucm:GenericRequest webKey="cs">
-         <ucm:Service IdcService="CHECKIN_NEW">
+         <ucm:Service IdcService="GET_FILE">
             <ucm:Document>
-                <ucm:Field name="dSecurityGroup">FAFusionImportExport</ucm:Field>
-                <ucm:Field name="dDocAccount">hcm$/dataloader$/import$</ucm:Field>
-                <ucm:Field name="dDocType">Application</ucm:Field>
-                <ucm:Field name="dFormat">application/zip</ucm:Field>
-                <ucm:Field name="dOriginalName">%%FILEBASE%%</ucm:Field>
-                <ucm:Field name="dExtension">zip</ucm:Field>
-                <ucm:Field name="dWebExtension">zip</ucm:Field>
-                        <ucm:Field name="dDocTitle">%%FILEBASE%%</ucm:Field>
-                        <ucm:Field name="dDocName">%%FILEBASE%%</ucm:Field>
-                <ucm:File  name="primaryFile" href="%%FILEBASE%%">
-             <ucm:Contents>%%FILEBODY%%</ucm:Contents>
-                </ucm:File>
+              <ucm:Field name="dSecurityGroup">FAFusionImportExport</ucm:Field>
+              <ucm:Field name="dDocAccount">hcm$/dataloader$/export$</ucm:Field>
+              <ucm:Field  name="dID">%%DOCID%%</ucm:Field>
             </ucm:Document>
          </ucm:Service>
       </ucm:GenericRequest>

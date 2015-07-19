@@ -1,15 +1,19 @@
 # MFT2HCM
-A simple multi-stage REST utility for uploading files from command line or a Managed File Transfer server to Oracle HCM SaaS service. The tool uses mft-upload and provides custom templates for uploading files to Oracle UCM(WCC) followed by a notification invocation of Oracle HCM SOAP Web Services.
-
-## Use Cases
-Oracle HCM requires files to be preloaded into Oracle UCM followed by calling the Oracle HCM File Based Loader. This tool combines those into a single configuration based command line utility. The provided templates can be extended as needed once you understand the SOAP payloads.   
+A simple REST utility for uploading or downloading files from command line or a Managed File Transfer server callout to Oracle WebCenter and HCM SaaS service. The tool utilizes the node "mft-upload" package and provides SOAP substitution templates for WebCenter(UCM) and Oracle HCM. File delivery to HCM for import use case is a 2 phase web service process to upload the file to WCC/UCM followed by a notification invocation of the Oracle HCM SOAP Web Services. Additionally HCM files can be exported into UCM and downloaded for HCM extract use case. 
 
 See the information below on the Oracle HCM File Based Laoder
 https://docs.oracle.com/cloud/latest/common/FAIHM/F1415008AN10ABB.htm#F1415008AN10ABB
 
+## Use Cases
+
+### HCM Load: The MFT server receives files from any Source protocol such as SFTP, SOAP, local file system or a back end integration process. The file can be decrypted, uncompressed or validated before a Source or Target pre-processing callout uploads it to UCM then notifies HCM to initiate the batch load. Finally the original file is backed up into the local file system, remote SFTP server or an cloud based storage service. An optional notification can also be delivered to the caller using a Target post-processing callout upon successful completion. The MFT server can live in either on premise or a cloud iPaaS hosted environment. Configuration files for this use case are shown below.
+
+### HCM Extract: An external event or schedule triggers the MFT server to search for a file in UCM using a  search query. Once a document id is indentified, it is retrived using a Source Pre-Processing callout which injects the retrieved file into the MFT Transfer. The file can then be decrypted, validated, decompressed before being sent to an MFT Target of any protocol such as SFTP, File system, SOAP Web Service or a back end interation process. Finally the original file is backed up into the local file system, remote SFTP server or an cloud based storage service. An optional notification can also be delivered to the caller using a Target post-processing callout upon successful completion. The MFT server can live in either on premise or a cloud iPaaS hosted environment. Configuration files for this use case are shown below.
+
+
 ## Prerequisites
 
-It is assumed you have knowledge and a working MFT server installed such as [Oracle MFT](http://bit.ly/oramft) and Oracle HCM.
+It is assumed you have knowledge and a working MFT server installed such as [Oracle MFT](http://bit.ly/oramft) Oracle WebCeneter(UCM), Oracle HCM.
 The SOAP interfaces are documented in the above Oracle HCM documentation.
 
 ## Installation
@@ -20,17 +24,18 @@ npm install mft2hcm --save
 
 ### Command Line
 
-node mft2hcm.js file=Establishment.zip [config=mft2hcm.json]
+node mft2hcm.js file=[FILE SPEC] [config=mft2hcm.json | searchfile=[SEARCH SPEC} | passwords='PASS1 PASS2' dir=[FILE LOCATION] 
 
 ### Config Files
 The config file is the same format as what is used in mft-upload and makes use of the "cfgarr" config array to make multiple SOAP calls as shown below. It embeds and reuses the request type endpoint and authentication used by the [HTTP Request package](https://github.com/request/request). 
 
 
-This is an example of the mft2hcm.json config file that uses the cfgarr property to chain to the next file and config file.
+The following 2 files are used together to implement the "Load and Notify" HCM Import use case. The first is an example of the mft2hcm.json config file that uses the cfgarr property to chain to the next config file that notifies the HCM server..
 ```
+MFT2HCM.json
 {
   "type": "UCM",
-  "template":    "UCM-PAYLOAD",
+  "template":    "UCM-PAYLOAD-PUT",
   "cfgarr": [
         { "config": "hcm.json", "file": "HCM-PAYLOAD"}
   ],
@@ -38,14 +43,14 @@ This is an example of the mft2hcm.json config file that uses the cfgarr property
     "url": "http://HOSTNAME:10613/idcws/GenericSoapPort",
     "method": "POST",
     "headers": { "Content-Type": "text/xml; charset=utf-8" },
-    "auth": { "user": "USERNAME", "pass": "PASSWORD" }
+    "auth": { "user": "USERNAME", "pass": "" }
   }
 }
 ```
 
-
 This is an example of the hcm.json config file that invokes the HCM File Based Loader SOAP Service
 ```
+hcm.json
 {
   "type": "HCM",
   "ctype": "text",
@@ -58,7 +63,7 @@ This is an example of the hcm.json config file that invokes the HCM File Based L
         "Content-Type": "text/xml; charset=utf-8",
         "Connection": "Keep-Alive"
         },
-    "auth": { "user": "USERNAME", "pass": "PASSWORD" },
+    "auth": { "user": "USERNAME", "pass": "" },
     "agentOptions": {
         "ca": "hcmcert.cer",
         "Connection": "Keep-Alive",
@@ -68,7 +73,45 @@ This is an example of the hcm.json config file that invokes the HCM File Based L
 }
 ```
 
-If a config argument is not provided, upload.js looks for one at ~/.mft/mft2hcm.json
+These 2 config files are used together to implement the "Search and Get" HCM Export use case. The first is an example of the ucmsearch.json config file that links to the ucmget.json config file once the search is successfully completed.
+```
+ucmsearch.json
+{
+  "type": "UCMSEARCH",
+  "ctype": "text",
+  "reqtemps": false,
+  "cfgarr": [
+        { "config": "ucmget.json", "file": "UCM-PAYLOAD-GET"}
+  ],
+  "request": {
+    "url": "http://HOSTNAME:10613/idcws/GenericSoapPort",
+    "method": "POST",
+    "headers": { "Content-Type": "text/xml; charset=utf-8" },
+    "auth": { "user": "USERNAME", "pass": "PASSWORD" }
+  }
+}
+```
+
+```
+ucmget.json
+{ 
+  "type": "UCMGET",
+  "ctype": "text",
+  "reqtemps": false,
+  "request": {
+    "url": "http://HOSTNAME:10613/idcws/GenericSoapPort",
+    "method": "POST",
+    "encoding": "binary",
+    "headers": { "Content-Type": "text/xml; charset=utf-8" },
+    "auth": { "user": "USERNAME", "pass": "PASSWORD" }
+  }
+}
+
+## Config File Notes
+
+- If the config argument is not provided, mft2hcm.js looks for one at $HOME/.mft/mft2hcm.json
+- Passwords in the request config file are overridden by the "passwords" space delimited cmd line argument.
+- Config types of UCMSEARCH and HCM send the template as the payload as shown by the '"reqtemps": false' property
 
 ## Testing
 

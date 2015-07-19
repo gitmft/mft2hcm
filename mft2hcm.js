@@ -2,10 +2,6 @@
 var upload= require('mft-upload');
 
 // BEGIN MAIN
-var filebody
-var filepath;
-var jsoncfg;
-var args;
 
 // copied from mft-upload/upload.js
 // MAIN processing
@@ -29,11 +25,19 @@ var args;
 
 */
 
+//console.log('MFT2HCM: Invoking Upload');
 upload.upload(process.argv, function(err, respcode, jcfg, stats) {
+  //console.log('MFT2HCM: Upload stats: 0', stats);
   if (err) {
-    console.log('Upload Error: ' +err);
-    //console.trace('Upload Error: ' +err);
-    process.exit(1);
+    //console.log('Upload Error: ' +err);
+    console.trace('MFT2HCM Error: ' +err);
+    //process.exit(1);
+  } else {
+    //console.log('MFT2HCM Upload JCFG: ', jcfg);
+    //console.log('MFT2HCM: File stats: ', stats);
+    // total hack. using stats as context to communicate UCM Get Filepath for MFT RunScript 'newfile' File Injection 
+    if (stats && stats.ucmfilepath) 
+      console.log('newfile=' +stats.ucmfilepath +' ');
   };
 });
 
