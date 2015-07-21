@@ -6,9 +6,11 @@ https://docs.oracle.com/cloud/latest/common/FAIHM/F1415008AN10ABB.htm#F1415008AN
 
 ## Use Cases
 
-### HCM Load: The MFT server receives files from any Source protocol such as SFTP, SOAP, local file system or a back end integration process. The file can be decrypted, uncompressed or validated before a Source or Target pre-processing callout uploads it to UCM then notifies HCM to initiate the batch load. Finally the original file is backed up into the local file system, remote SFTP server or an cloud based storage service. An optional notification can also be delivered to the caller using a Target post-processing callout upon successful completion. The MFT server can live in either on premise or a cloud iPaaS hosted environment. Configuration files for this use case are shown below.
+### HCM Load
+The MFT server receives files from any Source protocol such as SFTP, SOAP, local file system or a back end integration process. The file can be decrypted, uncompressed or validated before a Source or Target pre-processing callout uploads it to UCM then notifies HCM to initiate the batch load. Finally the original file is backed up into the local file system, remote SFTP server or an cloud based storage service. An optional notification can also be delivered to the caller using a Target post-processing callout upon successful completion. The MFT server can live in either on premise or a cloud iPaaS hosted environment. Configuration files for this use case are shown below.
 
-### HCM Extract: An external event or schedule triggers the MFT server to search for a file in UCM using a  search query. Once a document id is indentified, it is retrived using a Source Pre-Processing callout which injects the retrieved file into the MFT Transfer. The file can then be decrypted, validated, decompressed before being sent to an MFT Target of any protocol such as SFTP, File system, SOAP Web Service or a back end interation process. Finally the original file is backed up into the local file system, remote SFTP server or an cloud based storage service. An optional notification can also be delivered to the caller using a Target post-processing callout upon successful completion. The MFT server can live in either on premise or a cloud iPaaS hosted environment. Configuration files for this use case are shown below.
+### HCM Extract
+An external event or schedule triggers the MFT server to search for a file in UCM using a  search query. Once a document id is indentified, it is retrived using a Source Pre-Processing callout which injects the retrieved file into the MFT Transfer. The file can then be decrypted, validated, decompressed before being sent to an MFT Target of any protocol such as SFTP, File system, SOAP Web Service or a back end interation process. Finally the original file is backed up into the local file system, remote SFTP server or an cloud based storage service. An optional notification can also be delivered to the caller using a Target post-processing callout upon successful completion. The MFT server can live in either on premise or a cloud iPaaS hosted environment. Configuration files for this use case are shown below.
 
 
 ## Prerequisites
@@ -24,7 +26,7 @@ npm install mft2hcm --save
 
 ### Command Line
 
-node mft2hcm.js file=[FILE SPEC] [config=mft2hcm.json | searchfile=[SEARCH SPEC} | passwords='PASS1 PASS2' dir=[FILE LOCATION] 
+node mft2hcm.js file=[FILE SPEC] | [config=mft2hcm.json searchfile=[SEARCH SPEC] passwords='PASS1 PASS2' dir=[FILE LOCATION] businessobject=<HCM OBJECT TYPE]
 
 ### Config Files
 The config file is the same format as what is used in mft-upload and makes use of the "cfgarr" config array to make multiple SOAP calls as shown below. It embeds and reuses the request type endpoint and authentication used by the [HTTP Request package](https://github.com/request/request). 
@@ -32,7 +34,7 @@ The config file is the same format as what is used in mft-upload and makes use o
 
 The following 2 files are used together to implement the "Load and Notify" HCM Import use case. The first is an example of the mft2hcm.json config file that uses the cfgarr property to chain to the next config file that notifies the HCM server..
 ```
-MFT2HCM.json
+mft2hcm.json
 {
   "type": "UCM",
   "template":    "UCM-PAYLOAD-PUT",
@@ -112,6 +114,37 @@ ucmget.json
 - If the config argument is not provided, mft2hcm.js looks for one at $HOME/.mft/mft2hcm.json
 - Passwords in the request config file are overridden by the "passwords" space delimited cmd line argument.
 - Config types of UCMSEARCH and HCM send the template as the payload as shown by the '"reqtemps": false' property
+
+## Template Files
+
+### UCM-PAYLOAD-SEARCH
+
+Used for first step of Search/Get use case and uses the following substitution variables.
+```
+%%USERNAME%%, %%PASSWORD%%, %%ISOTIME%%, %%SEARCHFILE%%
+```
+
+### UCM-PAYLOAD-GET
+
+Used for second step of Search/Get use case
+```
+%%USERNAME%%, %%PASSWORD%%, %%ISOTIME%%, %%DOCID%%
+```
+
+### UCM-PAYLOAD-PUT
+
+Used for first step of Load and Notify use case
+```
+%%USERNAME%%, %%PASSWORD%%, %%ISOTIME%%, %%FILEBASE%%, %%FILEBODY%%
+```
+
+### HCM-PAYLOAD
+
+Used for first step of Load and Notify use case
+```
+%%USERNAME%%, %%PASSWORD%%, %%ISOTIME%%, %%BUSINESSOBJECT%%
+```
+
 
 ## Testing
 

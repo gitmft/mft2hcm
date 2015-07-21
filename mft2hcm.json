@@ -1,6 +1,6 @@
 {
   "type": "UCM",
-  "template":    "UCM-PAYLOAD",
+  "template":    "UCM-PAYLOAD-PUT",
   "cfgarr": [
         { "config": "hcm.json", "file": "HCM-PAYLOAD"}
   ],

@@ -9,8 +9,8 @@
   </soapenv:Header>
    <soapenv:Body>
       <typ:submitBatch>
-         <typ:ZipFileName>%%FILENAME%%.zip</typ:ZipFileName>
-         <typ:BusinessObjectList>Establishment</typ:BusinessObjectList>
+         <typ:ZipFileName>%%BUSINESSOBJECT%%.zip</typ:ZipFileName>
+         <typ:BusinessObjectList>%%BUSINESSOBJECT%%</typ:BusinessObjectList>
          <typ:BatchName>Batch %%ISOTIME%%</typ:BatchName>
          <typ:LoadType>FBL</typ:LoadType>
          <typ:AutoLoad>Y</typ:AutoLoad>
