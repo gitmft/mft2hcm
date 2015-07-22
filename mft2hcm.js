@@ -19,7 +19,14 @@ var upload= require('mft-upload');
       "method": "POST",
       "headers": { "Content-Type": "text/xml; charset=utf-8" },
       "body": "",
-      "auth": { "user": "USERNAME", "pass": "PASSWORD" }
+      "auth": { "user": "USERNAME", "pass": "PASSWORD" },
+      "agentOptions": {
+          "ca": "hcmcert.cer",
+          "Connection": "Keep-Alive",
+        "securityOptions": "SSL_OP_NO_SSLv3"
+      }
+    }
+
     }
   }
 
@@ -31,7 +38,7 @@ upload.upload(process.argv, function(err, respcode, jcfg, stats) {
   if (err) {
     //console.log('Upload Error: ' +err);
     console.trace('MFT2HCM Error: ' +err);
-    //process.exit(1);
+    process.exit(1);
   } else {
     //console.log('MFT2HCM Upload JCFG: ', jcfg);
     //console.log('MFT2HCM: File stats: ', stats);

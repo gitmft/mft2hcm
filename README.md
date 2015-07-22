@@ -108,6 +108,7 @@ ucmget.json
     "auth": { "user": "USERNAME", "pass": "PASSWORD" }
   }
 }
+```
 
 ## Config File Notes
 

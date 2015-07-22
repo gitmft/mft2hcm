@@ -1,6 +1,6 @@
 {
   "name": "mft2hcm",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "NodeJS app to copy files from MFT flow to UCM and Oracle HCM",
   "main": "mft2hcm.js",
   "scripts": {
