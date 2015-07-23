@@ -120,28 +120,28 @@ ucmget.json
 
 ### UCM-PAYLOAD-SEARCH
 
-Used for first step of Search/Get use case and uses the following substitution variables.
+[UCM-PAYLOAD-SEARCH](UCM-PAYLOAD-SEARCH) is used for the first step of Search/Get use case and uses the following substitution variables.
 ```
 %%USERNAME%%, %%PASSWORD%%, %%ISOTIME%%, %%SEARCHFILE%%
 ```
 
 ### UCM-PAYLOAD-GET
 
-Used for second step of Search/Get use case
+[UCM-PAYLOAD-GET](UCM-PAYLOAD-GET) is used for the second step of Search/Get use case and uses the following substitution variables.
 ```
 %%USERNAME%%, %%PASSWORD%%, %%ISOTIME%%, %%DOCID%%
 ```
 
 ### UCM-PAYLOAD-PUT
 
-Used for first step of Load and Notify use case
+[UCM-PAYLOAD-PUT](UCM-PAYLOAD-PUT) is used for the first step of Load and Notify use case and uses the following substitution variables.
 ```
 %%USERNAME%%, %%PASSWORD%%, %%ISOTIME%%, %%FILEBASE%%, %%FILEBODY%%
 ```
 
 ### HCM-PAYLOAD
 
-Used for first step of Load and Notify use case
+[HCM-PAYLOAD](HCM-PAYLOAD) is used for the first step of Load and Notify use case and uses the following substitution variables.
 ```
 %%USERNAME%%, %%PASSWORD%%, %%ISOTIME%%, %%BUSINESSOBJECT%%
 ```
@@ -149,7 +149,7 @@ Used for first step of Load and Notify use case
 
 ## Testing
 
-This package does not have it's own testing commands. See the underlying mft-upload tests.
+This package does not have it's own testing commands. See the underlying mft-upload tests and uses the following substitution variables.
 
 
 ## History

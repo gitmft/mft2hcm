@@ -8,7 +8,13 @@
     "method": "POST",
     "encoding": "binary",
     "headers": { "Content-Type": "text/xml; charset=utf-8" },
-    "auth": { "user": "USERNAME", "pass": "PASSWORD" }
+    "auth": { "user": "USERNAME", "pass": "PASSWORD" },
+    "agentOptions": {
+        "ca": "ucmcert.cer",
+        "Connection": "Keep-Alive",
+        "securityOptions": "SSL_OP_NO_SSLv3"
+    }
+
   }
 }
 

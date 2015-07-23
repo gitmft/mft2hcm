@@ -7,7 +7,12 @@
     "url": "http://HOSTNAME:10613/idcws/GenericSoapPort",
     "method": "POST",
     "headers": { "Content-Type": "text/xml; charset=utf-8" },
-    "auth": { "user": "USERNAME", "pass": "PASSWORD" }
+    "auth": { "user": "USERNAME", "pass": "PASSWORD" },
+    "agentOptions": {
+        "ca": "hcmcert.cer",
+        "Connection": "Keep-Alive",
+        "securityOptions": "SSL_OP_NO_SSLv3"
+    }
   }
 }
 
