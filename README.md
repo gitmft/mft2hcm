@@ -36,7 +36,7 @@ Edit [mft2hcm.json](mft2hcm.json) then change request.url, request.auth informat
 
 Edit [hcm.json](hcm.json) then change request.url, request.auth information to match your HCM environment.
 
-Execute command: mft2hcm.js config=mft2hcm.json file=<HCM_ZIP_FILE> Welcome1' dir=<LOCAL_DIR>
+Execute command: mft2hcm.js config=mft2hcm.json file=<HCM_ZIP_FILE> dir=<LOCAL_DIR>
 
 ### HCM Extract 
 
