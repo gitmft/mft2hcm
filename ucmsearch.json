@@ -1,4 +1,4 @@
-{ // cmdline example: node mft2hcm.js searchfile=mft2hcm.js config=ucmsearch.json file=UCM-PAYLOAD-SEARCH
+{ // cmdline example: node mft2hcm.js searchfile=<DOC TITLE> config=ucmsearch.json file=UCM-PAYLOAD-SEARCH 
   "type": "UCMSEARCH",
   "ctype": "text",
   "cfgarr": [

@@ -20,7 +20,31 @@ The SOAP interfaces are documented in the above Oracle HCM documentation.
 
 ## Installation
 
-npm install mft2hcm --save
+create HCM_HOME home folder. Ex: mkdir /app/hcm
+
+create node_modules subfolder. Ex: mkdir /app/hcm/node_modules
+
+go to HCM_HOME. Ex: cd /app/hcm
+
+npm install mft2hcm 
+
+## Quick Start
+
+### HCM Load 
+
+Edit [mft2hcm.json](mft2hcm.json) then change request.url, request.auth information to match your UCM/WCC environment.
+
+Edit [hcm.json](hcm.json) then change request.url, request.auth information to match your HCM environment.
+
+Execute command: mft2hcm.js config=mft2hcm.json file=<HCM_ZIP_FILE> Welcome1' dir=<LOCAL_DIR>
+
+### HCM Extract 
+
+Edit [ucmsearch.json](ucmsearch.json) then change request.url, request.auth information to match your UCM/WCC environment.
+
+Edit [ucmget.json](ucmget.json) then change request.url, request.auth information to match your UCM/WCC environment.
+
+Execute command: node mft2hcm.js config=ucmsearch.json file=UCM-PAYLOAD-SEARCH searchfile=<DOC TITLE> dir=<LOCAL DIR>
 
 ## Usage
 
