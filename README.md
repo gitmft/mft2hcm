@@ -36,7 +36,7 @@ Edit [mft2hcm.json](mft2hcm.json) then change request.url, request.auth informat
 
 Edit [hcm.json](hcm.json) then change request.url, request.auth information to match your HCM environment.
 
-Execute command: mft2hcm.js config=mft2hcm.json file=<HCM_ZIP_FILE> dir=<LOCAL_DIR>
+Execute command: mft2hcm.js config=mft2hcm.json file=[HCM_ZIP_FILE] dir=[LOCAL_DIR]
 
 ### HCM Extract 
 
@@ -44,13 +44,13 @@ Edit [ucmsearch.json](ucmsearch.json) then change request.url, request.auth info
 
 Edit [ucmget.json](ucmget.json) then change request.url, request.auth information to match your UCM/WCC environment.
 
-Execute command: node mft2hcm.js config=ucmsearch.json file=UCM-PAYLOAD-SEARCH searchfile=<DOC TITLE> dir=<LOCAL DIR>
+Execute command: node mft2hcm.js config=ucmsearch.json file=UCM-PAYLOAD-SEARCH searchfile=[DOC_TITLE] dir=[LOCAL_DIR]
 
 ## Usage
 
 ### Command Line
 
-node mft2hcm.js file=[FILE SPEC] | [config=mft2hcm.json searchfile=[SEARCH SPEC] passwords='PASS1 PASS2' dir=[FILE LOCATION] businessobject=<HCM OBJECT TYPE]
+node mft2hcm.js file=[FILE SPEC] | [config=mft2hcm.json searchfile=[SEARCH_SPEC] passwords='PASS1 PASS2' dir=[FILE_LOCATION] businessobject=[HCM_OBJECT TYPE]
 
 ### Config Files
 The config file is the same format as what is used in mft-upload and makes use of the "cfgarr" config array to make multiple SOAP calls as shown below. It embeds and reuses the request type endpoint and authentication used by the [HTTP Request package](https://github.com/request/request). 
