@@ -28,6 +28,8 @@ go to HCM_HOME. Ex: cd /app/hcm
 
 npm install mft2hcm 
 
+Edit [mft2hcm.js](mft2hcm.js) then change first line to match the location of your nodeJS install location. I.E.: #!/usr/local/node/bin/node
+
 ## Quick Start
 
 ### HCM Load 
@@ -36,7 +38,7 @@ Edit [mft2hcm.json](mft2hcm.json) then change request.url, request.auth informat
 
 Edit [hcm.json](hcm.json) then change request.url, request.auth information to match your HCM environment.
 
-Execute command: mft2hcm.js config=mft2hcm.json file=[HCM_ZIP_FILE] dir=[LOCAL_DIR]
+Execute command: mft2hcm.js config=mft2hcm.json file=[HCM_ZIP_FILE] dir=[LOCAL_DIR] 
 
 ### HCM Extract 
 
@@ -44,17 +46,27 @@ Edit [ucmsearch.json](ucmsearch.json) then change request.url, request.auth info
 
 Edit [ucmget.json](ucmget.json) then change request.url, request.auth information to match your UCM/WCC environment.
 
-Execute command: node mft2hcm.js config=ucmsearch.json file=UCM-PAYLOAD-SEARCH searchfile=[DOC_TITLE] dir=[LOCAL_DIR]
+Execute command: node mft2hcm.js config=ucmsearch.json file=UCM-PAYLOAD-SEARCH searchfile=[DOC_TITLE] dir=[LOCAL_DIR] docidfile=[FILE_SPEC]
 
 ## Usage
 
 ### Command Line
 
-node mft2hcm.js file=[FILE SPEC] | [config=mft2hcm.json searchfile=[SEARCH_SPEC] passwords='PASS1 PASS2' dir=[FILE_LOCATION] businessobject=[HCM_OBJECT TYPE]
+node mft2hcm.js file=[FILE SPEC] | [config=mft2hcm.json searchfile=[SEARCH_SPEC] passwords='PASS1 PASS2' dir=[FILE_LOCATION] businessobject=[HCM_OBJECT TYPE] docidfile=[FILE_SPEC]
+
+```
+file: location of input file
+config: location of JSON config file
+searchfile: file pattern to search for files in WebCenter/UCM
+passwords: array of passwords for for WebCenter, HCM etc endpoints
+dir: directory location of the file 
+businessobject: HCM Object Type optionally substituted into the WebCenter/UCM PUT template
+docidfile: file location on shared file system used to identify document id of files already processed.
+
+```
 
 ### Config Files
 The config file is the same format as what is used in mft-upload and makes use of the "cfgarr" config array to make multiple SOAP calls as shown below. It embeds and reuses the request type endpoint and authentication used by the [HTTP Request package](https://github.com/request/request). 
-
 
 The following 2 files are used together to implement the "Load and Notify" HCM Import use case. The first is an example of the mft2hcm.json config file that uses the cfgarr property to chain to the next config file that notifies the HCM server..
 ```
